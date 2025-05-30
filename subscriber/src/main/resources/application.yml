@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: monitoring-subscriber
+
+  rabbitmq:
+    host: leopard.lmq.cloudamqp.com
+    port: 5671
+    username: eenxeqeq
+    password: lC6oGNvjYq1wuP_H6sLv5d8fFwjZcvXR
+    virtual-host: eenxeqeq
+    ssl:
+      enabled: true
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 2000
+          max-attempts: 3
+          multiplier: 2
+        acknowledge-mode: auto
+        concurrency: 1
+        max-concurrency: 5
+monitoring:
+  api:
+    url: http://localhost:8081  # URL da API de análise/monitoramento
+
+logging:
+  level:
+    com.monitoring.subscriber: DEBUG
+    org.springframework.amqp: DEBUG
+    org.springframework.web.reactive: DEBUG
+
+server:
+  port: 8082

@@ -1,0 +1,25 @@
+server:
+  port: 8082
+
+bloodpressure:
+  api:
+    url: http://localhost:8084/api/bloodpressure
+monitoring:
+  api:
+    url: http://localhost:8085/api/monitoring
+
+spring:
+  rabbitmq:
+    uri: amqps://eenxeqeq:lC6oGNvjYq1wuP_H6sLv5d8fFwjZcvXR@leopard.lmq.cloudamqp.com/eenxeqeq
+    connection-timeout: 10000
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 1000
+          max-attempts: 3
+
+logging:
+  level:
+    com.monitoring: DEBUG
+    org.springframework.amqp: DEBUG
