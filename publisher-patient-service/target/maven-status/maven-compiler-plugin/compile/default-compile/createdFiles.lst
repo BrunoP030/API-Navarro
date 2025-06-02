@@ -1,7 +1,0 @@
-com\monitoring\model\HeartRateData.class
-com\monitoring\model\BloodPressureData.class
-com\monitoring\service\PatientPublisherService.class
-com\monitoring\controller\PatientController.class
-com\monitoring\PublisherPatientApplication.class
-com\monitoring\model\PatientData.class
-com\monitoring\config\RabbitConfig.class
