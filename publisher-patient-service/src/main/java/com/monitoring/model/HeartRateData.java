@@ -6,6 +6,9 @@ public class HeartRateData {
     private Integer heartRate;
     private String riskLevel;
 
+    // Dados adicionais para passar no fluxo
+    private Integer systolicPressure;
+    private Integer diastolicPressure;
 
     public HeartRateData() {}
 
@@ -13,6 +16,8 @@ public class HeartRateData {
         this.patientId = patientData.getPatientId();
         this.patientName = patientData.getPatientName();
         this.heartRate = patientData.getHeartRate();
+        this.systolicPressure = patientData.getSystolicPressure();
+        this.diastolicPressure = patientData.getDiastolicPressure();
         this.riskLevel = calculateRiskLevel(heartRate);
     }
 
@@ -55,13 +60,31 @@ public class HeartRateData {
         this.riskLevel = riskLevel;
     }
 
+    public Integer getSystolicPressure() {
+        return systolicPressure;
+    }
+
+    public void setSystolicPressure(Integer systolicPressure) {
+        this.systolicPressure = systolicPressure;
+    }
+
+    public Integer getDiastolicPressure() {
+        return diastolicPressure;
+    }
+
+    public void setDiastolicPressure(Integer diastolicPressure) {
+        this.diastolicPressure = diastolicPressure;
+    }
+
     @Override
     public String toString() {
         return "HeartRateData{" +
-                "pacienteId='" + patientId + '\'' +
-                ", pacienteNome='" + patientName + '\'' +
-                ", frequenciaCardiaca=" + heartRate +
-                ", lvlRisco='" + riskLevel + '\'' +
+                "patientId='" + patientId + '\'' +
+                ", patientName='" + patientName + '\'' +
+                ", heartRate=" + heartRate +
+                ", riskLevel='" + riskLevel + '\'' +
+                ", systolicPressure=" + systolicPressure +
+                ", diastolicPressure=" + diastolicPressure +
                 '}';
     }
 }

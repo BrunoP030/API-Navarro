@@ -17,7 +17,7 @@ public class MonitoringAnalysisService {
 
     private final WebClient webClient;
 
-    @Value("${monitoring.api.url:http://localhost:8081}")
+    @Value("${monitoring.api.url:http://localhost:8080}")
     private String monitoringApiUrl;
 
     public MonitoringAnalysisService() {

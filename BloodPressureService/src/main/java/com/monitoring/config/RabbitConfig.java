@@ -12,18 +12,58 @@ import org.springframework.context.annotation.Configuration;
 @EnableRabbit
 public class RabbitConfig {
 
-    public static final String MONITORING_EXCHANGE = "monitoring";
+    // Constantes para o fluxo completo
+    public static final String MONITORING_EXCHANGE = "monitoring.exchange";
+
+    // Filas
+    public static final String HEARTRATE_QUEUE = "heartrate.queue";
     public static final String BLOODPRESSURE_QUEUE = "bloodpressure.queue";
-    public static final String BLOODPRESSURE_ROUTING_KEY = "monitoring.bloodPressure";
+    public static final String MONITORING_QUEUE = "monitoring.queue";
+
+    // Routing Keys
+    public static final String HEARTRATE_ROUTING_KEY = "monitoring.heartrate";
+    public static final String BLOODPRESSURE_ROUTING_KEY = "monitoring.bloodpressure";
+    public static final String MONITORING_ROUTING_KEY = "monitoring.final";
 
     @Bean
     public TopicExchange monitoringExchange() {
-        return new TopicExchange(MONITORING_EXCHANGE, true, false);
+        return ExchangeBuilder
+                .topicExchange(MONITORING_EXCHANGE)
+                .durable(true)
+                .build();
     }
 
+    // Fila para HeartRate
+    @Bean
+    public Queue heartRateQueue() {
+        return QueueBuilder
+                .durable(HEARTRATE_QUEUE)
+                .build();
+    }
+
+    // Fila para BloodPressure
     @Bean
     public Queue bloodPressureQueue() {
-        return QueueBuilder.durable(BLOODPRESSURE_QUEUE).build();
+        return QueueBuilder
+                .durable(BLOODPRESSURE_QUEUE)
+                .build();
+    }
+
+    // Fila para Monitoring
+    @Bean
+    public Queue monitoringQueue() {
+        return QueueBuilder
+                .durable(MONITORING_QUEUE)
+                .build();
+    }
+
+    // Bindings
+    @Bean
+    public Binding heartRateBinding() {
+        return BindingBuilder
+                .bind(heartRateQueue())
+                .to(monitoringExchange())
+                .with(HEARTRATE_ROUTING_KEY);
     }
 
     @Bean
@@ -35,6 +75,14 @@ public class RabbitConfig {
     }
 
     @Bean
+    public Binding monitoringBinding() {
+        return BindingBuilder
+                .bind(monitoringQueue())
+                .to(monitoringExchange())
+                .with(MONITORING_ROUTING_KEY);
+    }
+
+    @Bean
     public Jackson2JsonMessageConverter messageConverter() {
         return new Jackson2JsonMessageConverter();
     }
@@ -43,6 +91,7 @@ public class RabbitConfig {
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate template = new RabbitTemplate(connectionFactory);
         template.setMessageConverter(messageConverter());
+        template.setExchange(MONITORING_EXCHANGE);
         return template;
     }
 }

@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 
 public class BloodPressureData {
     private String patientId;
-    private String patientName;
     private Integer systolicPressure;
     private Integer diastolicPressure;
     private String classification;
@@ -13,7 +12,17 @@ public class BloodPressureData {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timestamp;
 
-    public BloodPressureData() {}
+    // Constructors
+    public BloodPressureData() {
+        this.timestamp = LocalDateTime.now();
+    }
+
+    public BloodPressureData(String patientId, Integer systolicPressure, Integer diastolicPressure) {
+        this();
+        this.patientId = patientId;
+        this.systolicPressure = systolicPressure;
+        this.diastolicPressure = diastolicPressure;
+    }
 
     // Getters and Setters
     public String getPatientId() {
@@ -22,14 +31,6 @@ public class BloodPressureData {
 
     public void setPatientId(String patientId) {
         this.patientId = patientId;
-    }
-
-    public String getPatientName() {
-        return patientName;
-    }
-
-    public void setPatientName(String patientName) {
-        this.patientName = patientName;
     }
 
     public Integer getSystolicPressure() {
@@ -68,7 +69,6 @@ public class BloodPressureData {
     public String toString() {
         return "BloodPressureData{" +
                 "patientId='" + patientId + '\'' +
-                ", patientName='" + patientName + '\'' +
                 ", systolicPressure=" + systolicPressure +
                 ", diastolicPressure=" + diastolicPressure +
                 ", classification='" + classification + '\'' +

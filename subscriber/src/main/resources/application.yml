@@ -22,7 +22,7 @@ spring:
         max-concurrency: 5
 monitoring:
   api:
-    url: http://localhost:8081  # URL da API de análise/monitoramento
+    url: http://localhost:8080  # URL da API de análise/monitoramento
 
 logging:
   level:
@@ -31,4 +31,4 @@ logging:
     org.springframework.web.reactive: DEBUG
 
 server:
-  port: 8082
+  port: 8085

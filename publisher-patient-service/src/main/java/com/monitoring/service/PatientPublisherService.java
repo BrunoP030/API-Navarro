@@ -1,7 +1,6 @@
 package com.monitoring.service;
 
 import com.monitoring.config.RabbitConfig;
-import com.monitoring.model.BloodPressureData;
 import com.monitoring.model.HeartRateData;
 import com.monitoring.model.PatientData;
 import org.slf4j.Logger;
@@ -23,55 +22,48 @@ public class PatientPublisherService {
 
     private final Random random = new Random();
     private final String[] patientNames = {
-            "João Silva", "Maria Santos", "Pedro Costa", "Ana Oliveira", "Carlos Pereira"
+            "João Silva", "Maria Santos", "Pedro Costa", "Ana Oliveira", "Carlos Pereira",
+            "Roberto Almeida", "Fernanda Lima", "Marcos Rocha", "Juliana Freitas", "Ricardo Barros"
     };
 
     public void publishPatientData(PatientData patientData) {
         try {
-            // Cria dados específicos para Heart Rate
+            // Cria dados específicos para Heart Rate (incluindo dados completos do paciente)
             HeartRateData heartRateData = new HeartRateData(patientData);
 
-            // Cria dados específicos para Blood Pressure
-            BloodPressureData bloodPressureData = new BloodPressureData(patientData);
-
-            // Publica dados de Heart Rate
+            // Publica APENAS dados de Heart Rate para iniciar o fluxo
             rabbitTemplate.convertAndSend(
                     RabbitConfig.MONITORING_EXCHANGE,
                     RabbitConfig.HEARTRATE_ROUTING_KEY,
                     heartRateData
             );
 
-            logger.info("Dados de frequência cardíaca publicados: {}", heartRateData);
-
-            // Publica dados de Blood Pressure
-            rabbitTemplate.convertAndSend(
-                    RabbitConfig.MONITORING_EXCHANGE,
-                    RabbitConfig.BLOODPRESSURE_ROUTING_KEY,
-                    bloodPressureData
-            );
-
-            logger.info("Dados publicados sobre pressão arterial: {}", bloodPressureData);
+            logger.info("Dados do paciente publicados para HeartRate queue: {}", heartRateData);
 
         } catch (Exception e) {
             logger.error("Erro ao publicar dados do paciente: {}", e.getMessage(), e);
+            throw e;
         }
     }
 
-    @Scheduled(fixedRate = 10000) // Executa a cada 10 segundos
+    @Scheduled(fixedRate = 15000) // Executa a cada 15 segundos
     public void generateAndPublishPatientData() {
-        PatientData patientData = generateRandomPatientData();
-        publishPatientData(patientData);
+        try {
+            PatientData patientData = generateRandomPatientData();
+            publishPatientData(patientData);
+            logger.info("Dados aleatórios de paciente gerados e publicados: {}", patientData);
+        } catch (Exception e) {
+            logger.error("Erro ao gerar e publicar dados aleatórios do paciente: {}", e.getMessage(), e);
+        }
     }
 
     private PatientData generateRandomPatientData() {
-        String patientId = "PAT-" + String.format("%03d", random.nextInt(100));
+        String patientId = "PAT-" + String.format("%04d", random.nextInt(1000));
         String patientName = patientNames[random.nextInt(patientNames.length)];
-        Integer heartRate = 60 + random.nextInt(80); // 60-140 bpm
-        Integer systolicPressure = 90 + random.nextInt(70); // 90-160 mmHg
-        Integer diastolicPressure = 60 + random.nextInt(40); // 60-100 mmHg
+        Integer heartRate = 50 + random.nextInt(100); // 50-150 bpm (incluindo casos extremos)
+        Integer systolicPressure = 80 + random.nextInt(100); // 80-180 mmHg
+        Integer diastolicPressure = 50 + random.nextInt(60); // 50-110 mmHg
 
-        PatientData patientData = new PatientData(patientId, patientName, heartRate,
-                                                  systolicPressure, diastolicPressure);
-        return patientData;
+        return new PatientData(patientId, patientName, heartRate, systolicPressure, diastolicPressure);
     }
 }

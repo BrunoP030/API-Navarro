@@ -5,14 +5,6 @@
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.monitoring</groupId>
-	<artifactId>subscriber-heartrate-service</artifactId>
-	<version>1.0.0</version>
-	<packaging>jar</packaging>
-
-	<name>Subscriber HeartRate Service</name>
-	<description>Subscriber para dados de Heart Rate</description>
-
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -20,36 +12,52 @@
 		<relativePath/>
 	</parent>
 
+	<groupId>com.monitoring</groupId>
+	<artifactId>subscriber-heartrate-service</artifactId>
+	<version>1.0.0</version>
+	<name>subscriber-heartrate-service</name>
+	<description>Heart Rate Subscriber Service</description>
+
 	<properties>
 		<java.version>17</java.version>
-		<maven.compiler.source>17</maven.compiler.source>
-		<maven.compiler.target>17</maven.compiler.target>
 	</properties>
 
 	<dependencies>
+		<!-- Spring Boot Starter Web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-amqp</artifactId>
-		</dependency>
-
+		<!-- Spring Boot Starter WebFlux para WebClient -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 
+		<!-- Spring Boot Starter AMQP para RabbitMQ -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+
+		<!-- Jackson para JSON -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 		</dependency>
 
+		<!-- Spring Boot Starter Test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Spring AMQP Test -->
+		<dependency>
+			<groupId>org.springframework.amqp</groupId>
+			<artifactId>spring-rabbit-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

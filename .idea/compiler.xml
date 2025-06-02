@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="subscriber-bloodpressure-service" />
+        <module name="hearrate-api" />
+        <module name="publisher-patient-service" />
+        <module name="monitoring-api (1) (com.monitoring)" />
+        <module name="monitoring-api (2) (com.monitoring.api)" />
+        <module name="monitoring-api" />
+        <module name="subscriber-heartrate-service" />
+        <module name="bloodpressure-api" />
+        <module name="monitoring-subscriber" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="monitoring-api (1) (com.healthmonitoring)" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="bloodpressure-api" options="-parameters" />
+      <module name="hearrate-api" options="-parameters" />
+      <module name="monitoring-api" options="-parameters" />
+      <module name="monitoring-api (1) (com.healthmonitoring)" options="-parameters" />
+      <module name="monitoring-api (1) (com.monitoring)" options="-parameters" />
+      <module name="monitoring-api (2) (com.monitoring.api)" options="-parameters" />
+      <module name="monitoring-subscriber" options="-parameters" />
+      <module name="publisher-patient-service" options="-parameters" />
+      <module name="subscriber-bloodpressure-service" options="-parameters" />
+      <module name="subscriber-heartrate-service" options="-parameters" />
+    </option>
+  </component>
+</project>

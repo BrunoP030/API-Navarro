@@ -1,13 +1,19 @@
 server:
-  port: 8081
+  port: 8086
 
 heartrate:
   api:
-    url: http://localhost:8083/api/heartrate
+    url: http://localhost:8081/api/heartrate
 
 spring:
   rabbitmq:
-    uri: amqps://eenxeqeq:lC6oGNvjYq1wuP_H6sLv5d8fFwjZcvXR@leopard.lmq.cloudamqp.com/eenxeqeq
+    host: leopard.lmq.cloudamqp.com
+    port: 5671
+    username: eenxeqeq
+    password: lC6oGNvjYq1wuP_H6sLv5d8fFwjZcvXR
+    virtual-host: eenxeqeq
+    ssl:
+      enabled: true
     connection-timeout: 10000
     listener:
       simple:

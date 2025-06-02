@@ -26,7 +26,7 @@ public class HeartRateHttpService {
 
     public void sendHeartRateData(HeartRateData heartRateData) {
         webClient.post()
-                .uri("/save")
+                .uri("")
                 .body(Mono.just(heartRateData), HeartRateData.class)
                 .retrieve()
                 .bodyToMono(String.class)
