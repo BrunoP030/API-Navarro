@@ -1,0 +1,18 @@
+server:
+  port: 8088
+
+spring:
+  rabbitmq:
+    host: leopard.lmq.cloudamqp.com
+    port: 5671
+    username: eenxeqeq
+    password: lC6oGNvjYq1wuP_H6sLv5d8fFwjZcvXR
+    virtual-host: eenxeqeq
+    ssl:
+      enabled: true
+    connection-timeout: 30000
+
+logging:
+  level:
+    com.monitoring: DEBUG
+    org.springframework.amqp: DEBUG
